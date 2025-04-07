@@ -1,0 +1,195 @@
+{
+  "info": {
+    "_postman_id": "e0b3f3d0-5b1a-4b3e-8b1a-5b1a4b3e8b1a",
+    "name": "E-O-Voley API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"Test123!\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"Test123!\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "users", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Courts",
+      "item": [
+        {
+          "name": "Create Court",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Court\",\n  \"location\": {\n    \"type\": \"Point\",\n    \"coordinates\": [-34.6037, -58.3816]\n  },\n  \"address\": \"Test Address 123\",\n  \"city\": \"Buenos Aires\",\n  \"neighborhood\": \"Palermo\",\n  \"surface\": \"sand\",\n  \"dimensions\": {\n    \"width\": 8,\n    \"length\": 16\n  },\n  \"schedule\": [\n    {\n      \"day\": \"monday\",\n      \"openTime\": \"08:00\",\n      \"closeTime\": \"22:00\"\n    },\n    {\n      \"day\": \"tuesday\",\n      \"openTime\": \"08:00\",\n      \"closeTime\": \"22:00\"\n    },\n    {\n      \"day\": \"wednesday\",\n      \"openTime\": \"08:00\",\n      \"closeTime\": \"22:00\"\n    },\n    {\n      \"day\": \"thursday\",\n      \"openTime\": \"08:00\",\n      \"closeTime\": \"22:00\"\n    },\n    {\n      \"day\": \"friday\",\n      \"openTime\": \"08:00\",\n      \"closeTime\": \"22:00\"\n    },\n    {\n      \"day\": \"saturday\",\n      \"openTime\": \"09:00\",\n      \"closeTime\": \"20:00\"\n    },\n    {\n      \"day\": \"sunday\",\n      \"openTime\": \"09:00\",\n      \"closeTime\": \"18:00\"\n    }\n  ],\n  \"responsible\": \"John Doe\",\n  \"whatsApp\": \"+5491123456789\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/courts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "courts"]
+            }
+          }
+        },
+        {
+          "name": "Search Courts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/courts/search?lat=-34.6037&lng=-58.3816&radius=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "courts", "search"],
+              "query": [
+                {
+                  "key": "lat",
+                  "value": "-34.6037"
+                },
+                {
+                  "key": "lng",
+                  "value": "-58.3816"
+                },
+                {
+                  "key": "radius",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Request Affiliation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/courts/{{courtId}}/request-affiliation",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "courts", "{{courtId}}", "request-affiliation"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Matches",
+      "item": [
+        {
+          "name": "Create Match",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courtId\": \"{{courtId}}\",\n  \"date\": \"2024-04-10\",\n  \"startTime\": \"18:00\",\n  \"endTime\": \"20:00\",\n  \"maxPlayers\": 12,\n  \"description\": \"Friendly match\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/matches",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "matches"]
+            }
+          }
+        },
+        {
+          "name": "Join Match",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/matches/{{matchId}}/join",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "matches", "{{matchId}}", "join"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+} 
